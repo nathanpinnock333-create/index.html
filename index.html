@@ -24,6 +24,15 @@ body {
 
 .hidden{display:none;}
 
+/* Smooth transition for card clicks */
+.card-click-transition {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.card-click-transition.fade {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
 header{text-align:center;padding:70px 20px 50px;}
 header h1{font-size:3.6em;color:#f4c842;text-shadow:2px 2px 8px rgba(0,0,0,.6);}
 header p{color:#fff;font-size:1.3em;text-shadow:1px 1px 5px rgba(0,0,0,.5);}
@@ -70,19 +79,19 @@ footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;
 <section>
 <h2>Featured Creations</h2>
 <div class="products">
-<div class="card" onclick="window.open('https://payhip.com/b/0cgJy','_blank')">
+<div class="card card-click-transition" onclick="goToPayhip(this,'https://payhip.com/b/0cgJy')">
 <img src="https://i.postimg.cc/Df6pt5fG/flatlay-bullet-journal-planner-decorative-stickers-pen-clean-workspace-organizing-self-improvement-c.jpg">
 <h3>Daily Planner</h3>
 <p>Stay focused, structured, and in control of your days.</p>
 </div>
 
-<div class="card" onclick="window.open('https://payhip.com/b/hgWQA','_blank')">
+<div class="card card-click-transition" onclick="goToPayhip(this,'https://payhip.com/b/hgWQA')">
 <img src="https://i.postimg.cc/g2ZDkKpK/Arrestox-Blue-Financial-Planning-Cover.jpg">
 <h3>Financial Tracker</h3>
 <p>Take ownership of your money and build smarter habits.</p>
 </div>
 
-<div class="card" onclick="window.open('https://payhip.com/b/wEqJP','_blank')">
+<div class="card card-click-transition" onclick="goToPayhip(this,'https://payhip.com/b/wEqJP')">
 <img src="https://i.postimg.cc/Qt27z29t/images-(1).jpg">
 <h3>Study Guide eBook</h3>
 <p>Learn efficiently and study with confidence.</p>
@@ -94,17 +103,17 @@ footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;
 <h2>Explore the Archive</h2>
 <div class="products">
 
-<div class="card" onclick="openSection('pdfs')">
+<div class="card card-click-transition" onclick="openSection('pdfs')">
 <img src="https://i.postimg.cc/qR4cMVBL/Jot-Form-Pdf-Templates-03-1.png">
 <h3>PDF Templates</h3>
 </div>
 
-<div class="card" onclick="openSection('ebooks')">
+<div class="card card-click-transition" onclick="openSection('ebooks')">
 <img src="https://i.postimg.cc/vH3NJhhH/photo-1609895720459-394a6a8c99ed.jpg">
 <h3>eBooks</h3>
 </div>
 
-<div class="card" onclick="openSection('quotes')">
+<div class="card card-click-transition" onclick="openSection('quotes')">
 <img src="https://i.postimg.cc/7Z1yJ0M2/il-fullxfull-4533301694-egko.jpg">
 <h3>Quotes & Poems</h3>
 </div>
@@ -115,29 +124,25 @@ footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;
 <section id="pdfs" class="hidden">
 <h2>PDF Templates</h2>
 <div class="products">
-
-<div class="card" onclick="window.open('https://payhip.com/b/0cgJy','_blank')">
+<div class="card card-click-transition" onclick="goToPayhip(this,'https://payhip.com/b/0cgJy')">
 <img src="https://i.postimg.cc/Df6pt5fG/flatlay-bullet-journal-planner-decorative-stickers-pen-clean-workspace-organizing-self-improvement-c.jpg">
 <h3>Daily Planner</h3>
 </div>
 
-<div class="card" onclick="window.open('https://payhip.com/b/hgWQA','_blank')">
+<div class="card card-click-transition" onclick="goToPayhip(this,'https://payhip.com/b/hgWQA')">
 <img src="https://i.postimg.cc/g2ZDkKpK/Arrestox-Blue-Financial-Planning-Cover.jpg">
 <h3>Financial Planner</h3>
 </div>
-
 </div>
 </section>
 
 <section id="ebooks" class="hidden">
 <h2>eBooks</h2>
 <div class="products">
-
-<div class="card" onclick="window.open('https://payhip.com/b/wEqJP','_blank')">
+<div class="card card-click-transition" onclick="goToPayhip(this,'https://payhip.com/b/wEqJP')">
 <img src="https://i.postimg.cc/Qt27z29t/images-(1).jpg">
 <h3>Study Guide eBook</h3>
 </div>
-
 </div>
 </section>
 
@@ -175,6 +180,14 @@ function openSection(id){
   document.querySelectorAll('.hidden').forEach(sec=>sec.style.display="none");
   document.getElementById(id).style.display="block";
   document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+function goToPayhip(card,url){
+  card.classList.add('fade'); // start smooth fade
+  setTimeout(()=>{
+    window.open(url,'_blank');
+    card.classList.remove('fade'); // reset in case user stays
+  },300);
 }
 </script>
 
