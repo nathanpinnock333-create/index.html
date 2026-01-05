@@ -33,6 +33,31 @@ body {
   transform: scale(0.95);
 }
 
+/* Fade-in for header and sections */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered fade-in for cards */
+.products .card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+.products .card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 header{text-align:center;padding:70px 20px 50px;}
 header h1{font-size:3.6em;color:#f4c842;text-shadow:2px 2px 8px rgba(0,0,0,.6);}
 header p{color:#fff;font-size:1.3em;text-shadow:1px 1px 5px rgba(0,0,0,.5);}
@@ -70,13 +95,13 @@ footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;
 <body>
 <div class="bg-layer"></div>
 
-<header>
+<header class="fade-in">
 <h1>Nate Archives</h1>
 <p>A curated digital library of planners, tools, and books designed to help you organize your life, master your goals, and grow with purpose.</p>
 <nav><a href="#about">About</a><a href="#contact">Contact</a></nav>
 </header>
 
-<section>
+<section class="fade-in">
 <h2>Featured Creations</h2>
 <div class="products">
 <div class="card card-click-transition" onclick="goToPayhip(this,'https://payhip.com/b/0cgJy')">
@@ -99,7 +124,7 @@ footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;
 </div>
 </section>
 
-<section>
+<section class="fade-in">
 <h2>Explore the Archive</h2>
 <div class="products">
 
@@ -155,7 +180,7 @@ footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;
 <a href="https://payhip.com/NateArc" target="_blank"><button>Visit Full Store</button></a>
 </div>
 
-<section id="about">
+<section id="about" class="fade-in">
 <h2>About Me</h2>
 <div class="about-container">
 <div class="about-image"><img src="https://i.postimg.cc/L4QBtW6k/20251130-135725.jpg"></div>
@@ -165,7 +190,7 @@ footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;
 </div>
 </section>
 
-<section id="contact">
+<section id="contact" class="fade-in">
 <h2>Contact Us</h2>
 <p>Have a question, collaboration idea, or need support? I’d love to hear from you.</p>
 <p>Email: <a href="mailto:thenatearchive@gmail.com">thenatearchive@gmail.com</a></p>
@@ -189,6 +214,16 @@ function goToPayhip(card,url){
     card.classList.remove('fade'); // reset
   },700);
 }
+
+// Staggered fade-in for all cards on page load
+window.addEventListener('load', () => {
+  const cards = document.querySelectorAll('.products .card');
+  cards.forEach((card, index) => {
+    setTimeout(() => {
+      card.classList.add('show');
+    }, index * 150); // 150ms between each card
+  });
+});
 </script>
 
 </body>
