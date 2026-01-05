@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nate Archives</title>
-
 <style>
 body {
   margin:0;
@@ -12,7 +11,6 @@ body {
   color:#333;
   scroll-behavior: smooth;
   overflow-x: hidden;
-  background: #000;
 }
 
 /* Background */
@@ -26,11 +24,9 @@ body {
   background-size: cover;
   transform: translateZ(-1px) scale(2);
   z-index: -1;
-  filter: brightness(1.05) contrast(1.1); /* Makes background pop */
-  transition: transform 0.6s ease-out; /* Gentle zoom */
+  filter: brightness(1.05) contrast(1.1);
+  transition: transform 0.6s ease-out;
 }
-
-/* Hover zoom */
 body:hover .bg-layer {
   transform: translateZ(-1px) scale(2.05);
 }
@@ -40,25 +36,19 @@ header {
   padding:60px 20px;
   text-align:center;
 }
-header h1 { 
-  margin:0; 
-  font-size:3.5em; 
+header h1 {
+  margin:0;
+  font-size:3.5em;
   letter-spacing:2px;
   color:#f4c842;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
-  transition: transform 0.3s;
+  text-shadow:2px 2px 8px rgba(0,0,0,0.6);
 }
-header h1:hover { transform: scale(1.05); }
-header p { margin:15px 0 30px 0; font-size:1.3em; color:#fff; text-shadow: 1px 1px 5px rgba(0,0,0,0.5);}
-nav a {
-  color:white;
-  margin:0 15px;
-  text-decoration:none;
-  font-weight:bold;
-  transition:0.3s;
-  font-size:1.1em;
+header p {
+  margin:15px 0 30px 0;
+  font-size:1.3em;
+  color:#fff;
+  text-shadow:1px 1px 5px rgba(0,0,0,0.5);
 }
-nav a:hover { color:#f4c842; }
 
 /* Sections */
 section {
@@ -66,7 +56,6 @@ section {
   max-width:1200px;
   margin:auto;
   position:relative;
-  border-radius: 20px;
 }
 section h2 {
   font-size:2.3em;
@@ -74,30 +63,22 @@ section h2 {
   text-align:center;
   color:#f4c842;
   text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
-  display:inline-block;
-  transition: transform 0.3s;
 }
-section h2:hover { transform: scale(1.05); }
 
 /* Product Cards */
 .products {
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
   gap:40px;
+  margin-bottom:50px;
 }
 .card {
-  background: rgba(255,255,255,0.95); /* Slightly more opaque */
+  background: rgba(255,255,255,0.95);
   border-radius:15px;
   box-shadow:0 10px 30px rgba(0,0,0,.15);
   padding:25px;
   text-align:center;
   transition: transform 0.3s, box-shadow 0.3s;
-  opacity:0;
-  transform: translateY(30px);
-}
-.card.visible { 
-  opacity:1; 
-  transform: translateY(0);
 }
 .card:hover {
   transform: translateY(-10px) scale(1.02);
@@ -107,9 +88,7 @@ section h2:hover { transform: scale(1.05); }
   width:100%;
   border-radius:12px;
   margin-bottom:15px;
-  transition: transform 0.3s;
 }
-.card img:hover { transform: scale(1.07); }
 .card h3 { font-size:1.4em; margin-bottom:10px; }
 .card p { font-size:1.05em; line-height:1.5; }
 
@@ -131,15 +110,10 @@ button:hover {
 }
 a.buy-btn { text-decoration:none; display:inline-block; margin-top:12px; }
 
-/* Filter Buttons */
-.filter-btns {
+/* Visit Full Store Button Center */
+#store-btn {
   text-align:center;
-  margin-bottom:40px;
-}
-.filter-btns button {
-  margin:0 10px 10px 10px;
-  padding:10px 20px;
-  font-size:1em;
+  margin:60px 0;
 }
 
 /* About Me */
@@ -156,9 +130,7 @@ a.buy-btn { text-decoration:none; display:inline-block; margin-top:12px; }
   max-width: 100%;
   border-radius: 20px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-  transition: transform 0.3s;
 }
-.about-image img:hover { transform: scale(1.05); }
 .about-text { max-width: 650px; font-size: 1.15em; line-height: 1.7; color:#fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
 
 /* Contact */
@@ -179,12 +151,10 @@ footer {
 /* Responsive */
 @media(max-width:600px){
   header h1 { font-size:2.8em; }
-  nav a { display:block; margin:10px 0; }
   .about-container { flex-direction: column; }
 }
 </style>
 </head>
-
 <body>
 
 <div class="bg-layer"></div>
@@ -192,67 +162,58 @@ footer {
 <header>
   <h1>Nate Archives</h1>
   <p>Affordable Books & Productivity Templates</p>
-  <nav>
-    <a href="#catalog">Catalog</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
 </header>
+
+<!-- Top Featured Items -->
+<section id="featured">
+  <h2>Top Picks</h2>
+  <div class="products">
+    <div class="card">
+      <img src="https://i.postimg.cc/Df6pt5fG/flatlay-bullet-journal-planner-decorative-stickers-pen-clean-workspace-organizing-self-improvement-c.jpg" alt="Daily Planner">
+      <h3>Daily Planner</h3>
+    </div>
+    <div class="card">
+      <img src="https://i.postimg.cc/g2ZDkKpK/Arrestox-Blue-Financial-Planning-Cover.jpg" alt="Financial Tracker">
+      <h3>Financial Tracker</h3>
+    </div>
+    <div class="card">
+      <img src="https://i.postimg.cc/Qt27z29t/images-(1).jpg" alt="Study Guide">
+      <h3>Study Guide eBook</h3>
+    </div>
+  </div>
+</section>
 
 <!-- Catalog Section -->
 <section id="catalog">
   <h2>📦 Catalog</h2>
 
-  <!-- Filter Buttons -->
-  <div class="filter-btns">
-    <button onclick="filterCategory('pdf')">PDF Templates</button>
-    <button onclick="filterCategory('ebook')">eBooks</button>
-    <button onclick="filterCategory('quotes')">Quotes & Poems</button>
-  </div>
-
   <div class="products">
-
     <!-- PDF Templates -->
-    <div class="card category-pdf">
-      <img src="https://i.postimg.cc/Df6pt5fG/flatlay-bullet-journal-planner-decorative-stickers-pen-clean-workspace-organizing-self-improvement-c.jpg" alt="Daily Planner">
-      <h3>Daily Planner Template</h3>
-      <p>Organize your life with this clean productivity planner.</p>
-      <p><strong>$5</strong></p>
-      <a href="https://payhip.com/b/0cgJy" class="buy-btn" target="_blank"><button>Buy Now</button></a>
-    </div>
-
-    <div class="card category-pdf">
-      <img src="https://i.postimg.cc/g2ZDkKpK/Arrestox-Blue-Financial-Planning-Cover.jpg" alt="Financial Planner">
-      <h3>Financial Tracker PDF</h3>
-      <p>Track income, expenses, and savings with ease.</p>
-      <p><strong>$7</strong></p>
-      <a href="https://payhip.com/b/hgWQA" class="buy-btn" target="_blank"><button>Buy Now</button></a>
+    <div class="card">
+      <img src="https://i.postimg.cc/qR4cMVBL/Jot-Form-Pdf-Templates-03-1.png" alt="PDF Templates">
+      <h3>PDF Templates</h3>
     </div>
 
     <!-- eBooks -->
-    <div class="card category-ebook">
-      <img src="https://i.postimg.cc/Qt27z29t/images-(1).jpg" alt="Study Guide">
-      <h3>Study Guide eBook</h3>
-      <p>Improve focus, memory, and academic performance.</p>
-      <p><strong>$10</strong></p>
-      <a href="https://payhip.com/b/wEqJP" class="buy-btn" target="_blank"><button>Buy Now</button></a>
+    <div class="card">
+      <img src="https://i.postimg.cc/vH3NJhhH/photo-1609895720459-394a6a8c99ed.jpg" alt="eBooks">
+      <h3>eBooks</h3>
     </div>
 
-    <!-- Quotes & Poems (empty for now) -->
-    <div class="card category-quotes" style="display:none;">
-      <p>Coming soon!</p>
+    <!-- Quotes & Poems -->
+    <div class="card">
+      <img src="https://i.postimg.cc/7Z1yJ0M2/il-fullxfull-4533301694-egko.jpg" alt="Quotes & Poems">
+      <h3>Quotes & Poems</h3>
     </div>
-
   </div>
-
-  <!-- Visit Full Store -->
-  <div id="store-btn">
-    <a href="https://payhip.com/NateArc" target="_blank"><button>Visit Full Store</button></a>
-  </div>
-
 </section>
 
-<!-- About -->
+<!-- Visit Full Store Button -->
+<div id="store-btn">
+  <a href="https://payhip.com/NateArc" target="_blank"><button>Visit Full Store</button></a>
+</div>
+
+<!-- About Me -->
 <section id="about">
   <h2>📖 About Me</h2>
   <div class="about-container">
@@ -276,28 +237,6 @@ footer {
 <footer>
   <p>© 2026 Nate Archives. All Rights Reserved.</p>
 </footer>
-
-<script>
-// Animate cards on scroll
-const cards = document.querySelectorAll('.card');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, {threshold:0.2});
-cards.forEach(card => observer.observe(card));
-
-// Filter Function
-function filterCategory(category) {
-  const pdfs = document.querySelectorAll('.category-pdf');
-  const ebooks = document.querySelectorAll('.category-ebook');
-  const quotes = document.querySelectorAll('.category-quotes');
-
-  pdfs.forEach(card => card.style.display = category === 'pdf' ? 'block' : 'none');
-  ebooks.forEach(card => card.style.display = category === 'ebook' ? 'block' : 'none');
-  quotes.forEach(card => card.style.display = category === 'quotes' ? 'block' : 'none');
-}
-</script>
 
 </body>
 </html>
