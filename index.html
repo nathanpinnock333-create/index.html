@@ -6,36 +6,33 @@
 <title>Nate Archives</title>
 
 <style>
-/* Basic setup */
+/* Base setup */
 body {
   margin:0;
   font-family: Arial, sans-serif;
-  background:#f5f7fa;
   color:#333;
   scroll-behavior: smooth;
+  background: url('https://cdn.openai.com/images/long_library_corridor_1024x1024.png') no-repeat center center fixed;
+  background-size: cover;
+  overflow-x: hidden;
 }
 
 /* Header */
 header {
-  background:#0a2540;
+  background: rgba(10,37,64,0.85);
   color:white;
   padding:60px 20px;
   text-align:center;
+  backdrop-filter: blur(5px);
 }
-header h1 {
-  margin:0;
-  font-size:3em;
-}
-header p {
-  margin:10px 0 25px 0;
-  font-size:1.2em;
-}
+header h1 { margin:0; font-size:3em; }
+header p { margin:10px 0 25px 0; font-size:1.2em; }
 nav a {
   color:white;
   margin:0 20px;
   text-decoration:none;
   font-weight:bold;
-  transition: 0.3s;
+  transition:0.3s;
 }
 nav a:hover { color:#f4c842; }
 
@@ -45,6 +42,10 @@ section {
   max-width:1200px;
   margin:auto;
   position:relative;
+  backdrop-filter: blur(2px);
+  background: rgba(255,255,255,0.85);
+  border-radius: 15px;
+  margin-bottom:40px;
 }
 
 /* Section headers */
@@ -93,7 +94,7 @@ section h2 {
 .card:hover h3 { color:#f4c842; }
 .card p { font-size:1em; line-height:1.5; }
 
-/* Buy button */
+/* Buttons */
 button {
   background:#0a2540;
   color:white;
@@ -111,7 +112,7 @@ button:hover {
 }
 a.buy-btn { text-decoration:none; display:inline-block; margin-top:12px; }
 
-/* Visit full store button */
+/* Visit Full Store button */
 #store-btn { 
   display:block; 
   margin:50px auto 0; 
@@ -130,12 +131,14 @@ a.buy-btn { text-decoration:none; display:inline-block; margin-top:12px; }
 
 /* Footer */
 footer {
-  background:#0a2540;
+  background: rgba(10,37,64,0.85);
   color:white;
   text-align:center;
   padding:30px;
-  margin-top:50px;
   font-size:0.95em;
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+  margin-bottom:40px;
 }
 
 /* Responsive */
@@ -161,33 +164,43 @@ footer {
 <section id="store">
   <h2>📚 Our Collection</h2>
   <div class="products">
+
     <!-- Daily Planner -->
     <div class="card">
-      <img src="https://via.placeholder.com/300x200?text=Daily+Planner" alt="Daily Planner">
+      <img src="https://i.imgur.com/yourDailyPlannerImageID.jpg" alt="Daily Planner">
       <h3>Daily Planner Template</h3>
       <p>Organize your life with this clean productivity planner.</p>
       <p><strong>$5</strong></p>
-      <a href="https://payhip.com/b/0cgJy" class="buy-btn" target="_blank"><button>Buy Now</button></a>
+      <a href="https://payhip.com/b/0cgJy" class="buy-btn" target="_blank">
+        <button>Buy Now</button>
+      </a>
     </div>
-    <!-- Financial Tracker -->
+
+    <!-- Financial Planner -->
     <div class="card">
-      <img src="https://via.placeholder.com/300x200?text=Financial+Tracker" alt="Financial Tracker">
+      <img src="https://i.imgur.com/yourFinancialPlannerImageID.jpg" alt="Financial Planner">
       <h3>Financial Tracker PDF</h3>
       <p>Track income, expenses, and savings with ease.</p>
       <p><strong>$7</strong></p>
-      <a href="https://payhip.com/b/hgWQA" class="buy-btn" target="_blank"><button>Buy Now</button></a>
+      <a href="https://payhip.com/b/hgWQA" class="buy-btn" target="_blank">
+        <button>Buy Now</button>
+      </a>
     </div>
+
     <!-- Study Guide -->
     <div class="card">
       <img src="https://via.placeholder.com/300x200?text=Study+Guide" alt="Study Guide">
       <h3>Study Guide eBook</h3>
       <p>Improve focus, memory, and academic performance.</p>
       <p><strong>$10</strong></p>
-      <a href="https://payhip.com/b/wEqJP" class="buy-btn" target="_blank"><button>Buy Now</button></a>
+      <a href="https://payhip.com/b/wEqJP" class="buy-btn" target="_blank">
+        <button>Buy Now</button>
+      </a>
     </div>
+
   </div>
 
-  <!-- Visit full store button -->
+  <!-- Visit Full Store button -->
   <div id="store-btn">
     <a href="https://payhip.com/NateArc" target="_blank">
       <button>Visit Full Store</button>
@@ -216,13 +229,17 @@ footer {
 const cards = document.querySelectorAll('.card');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if(entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+    if(entry.isIntersecting) entry.target.classList.add('visible');
   });
 }, {threshold:0.2});
-
 cards.forEach(card => observer.observe(card));
+
+// Interactive background on mouse move
+document.addEventListener('mousemove', (e) => {
+  const x = e.clientX / window.innerWidth;
+  const y = e.clientY / window.innerHeight;
+  document.body.style.backgroundPosition = `${50 + x*10}% ${50 + y*10}%`;
+});
 </script>
 
 </body>
