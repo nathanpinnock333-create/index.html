@@ -44,15 +44,15 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Staggered fade-in for cards with scale + slide effect */
+/* Staggered fade-in for cards */
 .products .card {
   opacity: 0;
-  transform: translateY(40px) scale(0.95);  /* stronger motion */
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  transform: translateY(20px);
+  transition: transform 0.6s ease, opacity 0.6s ease;
 }
 .products .card.show {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 header{text-align:center;padding:70px 20px 50px;}
@@ -74,12 +74,10 @@ section h2{text-align:center;color:#f4c842;font-size:2.4em;margin-bottom:45px;te
   cursor:pointer;transition:.3s;
 }
 .card:hover{transform:translateY(-8px) scale(1.02);}
-
-/* Fixed image height for uniform cards */
 .card img{
   width:100%;
-  height:250px;
-  object-fit:cover;
+  height:250px;       /* fixed height for all images */
+  object-fit:cover;   /* scales/crops image to fit */
   border-radius:12px;
   margin-bottom:15px;
 }
@@ -93,7 +91,6 @@ button:hover{background:#f4c842;color:#0a2540;}
 .about-text{max-width:640px;color:white;font-size:1.15em;line-height:1.7;text-shadow:1px 1px 4px rgba(0,0,0,.6);}
 
 #contact p,#contact a{color:#f4c842;font-weight:bold;text-shadow:1px 1px 4px rgba(0,0,0,.6);}
-#contact a{color:yellow;}
 footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;border-radius:16px;margin-bottom:40px;}
 
 /* Modal styles */
@@ -119,6 +116,36 @@ footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;
   font-size:24px;
   cursor:pointer;
 }
+
+/* AI Assistant modal */
+#ai-modal {
+  display:none;
+  position:fixed;
+  z-index:1000;
+  left:0;top:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.8);
+  justify-content:center;align-items:center;
+}
+#ai-modal .modal-content {
+  background:#0a2540;
+  color:white;
+  max-width:600px;
+  width:90%;
+  border-radius:16px;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+}
+#ai-chat-window {
+  height:300px;
+  overflow-y:auto;
+  background:#102040;
+  padding:10px;
+  border-radius:12px;
+  margin-bottom:12px;
+}
+#ai-input{padding:10px;border-radius:8px;border:none;width:80%;margin-right:6px;}
+#ai-send{padding:10px;border-radius:8px;border:none;background:#f4c842;color:#0a2540;cursor:pointer;}
 </style>
 </head>
 
@@ -167,7 +194,11 @@ footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;
 </div>
 <div class="card card-click-transition" onclick="openSection('quotes')">
 <img src="https://i.postimg.cc/7Z1yJ0M2/il-fullxfull-4533301694-egko.jpg">
-<h3>Quotes & Poems</h3>
+<h3>Quotes</h3>
+</div>
+<div class="card card-click-transition" onclick="openSection('poems')">
+<img src="https://i.postimg.cc/wM1Kb9TQ/il-570x-N-4478518881-37xz.jpg">
+<h3>Poems</h3>
 </div>
 </div>
 </section>
@@ -197,7 +228,12 @@ footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;
 </section>
 
 <section id="quotes" class="hidden">
-<h2>Quotes & Poems</h2>
+<h2>Quotes</h2>
+<p style="text-align:center;font-size:1.3em;color:#f4c842;">Coming Soon</p>
+</section>
+
+<section id="poems" class="hidden">
+<h2>Poems</h2>
 <p style="text-align:center;font-size:1.3em;color:#f4c842;">Coming Soon</p>
 </section>
 
@@ -225,7 +261,7 @@ footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;
 
 <footer>© 2026 Nate Archives. All Rights Reserved.</footer>
 
-<!-- Modals for embedded Payhip products -->
+<!-- Product Modals -->
 <div id="modalDaily" class="modal">
   <div class="modal-content">
     <span class="modal-close" onclick="closeModal('modalDaily')">&times;</span>
@@ -247,6 +283,19 @@ footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;
   </div>
 </div>
 
+<!-- AI Assistant Modal -->
+<div id="ai-modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeAIChat()">&times;</span>
+    <div id="ai-chat-window"></div>
+    <div style="display:flex;">
+      <input id="ai-input" placeholder="Ask about products..." />
+      <button id="ai-send" onclick="sendAIMessage()">Send</button>
+    </div>
+  </div>
+</div>
+<button onclick="openAIChat()" style="position:fixed;bottom:20px;right:20px;padding:14px 18px;border:none;border-radius:50%;background:#f4c842;color:#0a2540;font-weight:bold;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,.4);">AI</button>
+
 <script>
 function openSection(id){
   document.querySelectorAll('.hidden').forEach(sec=>sec.style.display="none");
@@ -255,26 +304,70 @@ function openSection(id){
 }
 
 function goToPayhip(card,url){
-  card.classList.add('fade');
+  card.classList.add('fade'); 
   setTimeout(()=>{
     window.open(url,'_blank'); 
     card.classList.remove('fade'); 
   },700);
 }
 
-// Staggered fade-in for all cards on page load with longer delay for visibility
+// Staggered fade-in for all cards on page load
 window.addEventListener('load', () => {
   const cards = document.querySelectorAll('.products .card');
   cards.forEach((card, index) => {
     setTimeout(() => {
       card.classList.add('show');
-    }, index * 400);  // increased from 150ms to 400ms
+    }, index * 150); 
   });
 });
 
 // Modal functions
 function openModal(id){ document.getElementById(id).style.display='flex'; }
 function closeModal(id){ document.getElementById(id).style.display='none'; }
+
+// AI Assistant
+function openAIChat(){ document.getElementById('ai-modal').style.display='flex'; }
+function closeAIChat(){ document.getElementById('ai-modal').style.display='none'; }
+
+const productsInfo = {
+  "daily planner": "The Daily Planner helps you stay focused, structured, and in control of your days. Check it out in PDF Templates.",
+  "financial tracker": "The Financial Tracker lets you track income, expenses, and plan smarter money habits.",
+  "study guide": "The Study Guide eBook helps you learn efficiently and study with confidence.",
+  "pdf templates": "Our PDF Templates include the Daily Planner and Financial Tracker.",
+  "ebooks": "We currently have the Study Guide eBook available.",
+  "quotes": "Quotes coming soon!",
+  "poems": "Poems coming soon!"
+};
+
+function sendAIMessage(){
+  const input=document.getElementById('ai-input');
+  const chat=document.getElementById('ai-chat-window');
+  if(input.value.trim()==='') return;
+
+  const userMsg=document.createElement('p'); 
+  userMsg.style.color='#0a2540'; 
+  userMsg.innerHTML='<b>You:</b> '+input.value;
+  chat.appendChild(userMsg);
+
+  const query=input.value.toLowerCase();
+
+  let response = "Sorry, I can only provide info about products in Nate Archives. Try asking about Daily Planner, Financial Tracker, Study Guide eBook, PDFs, or eBooks.";
+
+  for(const key in productsInfo){
+    if(query.includes(key)){
+      response = productsInfo[key];
+      break;
+    }
+  }
+
+  const botMsg=document.createElement('p'); 
+  botMsg.style.color='#f4c842';
+  botMsg.innerHTML='<b>AI:</b> '+response;
+  chat.appendChild(botMsg);
+
+  chat.scrollTop=chat.scrollHeight;
+  input.value='';
+}
 </script>
 
 </body>
