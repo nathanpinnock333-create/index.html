@@ -74,7 +74,13 @@ section h2{text-align:center;color:#f4c842;font-size:2.4em;margin-bottom:45px;te
   cursor:pointer;transition:.3s;
 }
 .card:hover{transform:translateY(-8px) scale(1.02);}
-.card img{width:100%;border-radius:12px;margin-bottom:15px;}
+.card img{
+  width:100%;
+  height:250px;       /* fixed height for all images */
+  object-fit:cover;   /* scales/crops image to fit */
+  border-radius:12px;
+  margin-bottom:15px;
+}
 
 #store-btn{text-align:center;margin:70px 0;}
 button{background:#0a2540;color:white;border:none;padding:14px 26px;border-radius:8px;cursor:pointer;}
