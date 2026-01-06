@@ -44,15 +44,15 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Staggered fade-in for cards */
+/* Staggered fade-in for cards with scale + slide effect */
 .products .card {
   opacity: 0;
-  transform: translateY(20px);
-  transition: transform 0.6s ease, opacity 0.6s ease;
+  transform: translateY(40px) scale(0.95);  /* stronger motion */
+  transition: transform 0.8s ease, opacity 0.8s ease;
 }
 .products .card.show {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 header{text-align:center;padding:70px 20px 50px;}
@@ -74,10 +74,12 @@ section h2{text-align:center;color:#f4c842;font-size:2.4em;margin-bottom:45px;te
   cursor:pointer;transition:.3s;
 }
 .card:hover{transform:translateY(-8px) scale(1.02);}
+
+/* Fixed image height for uniform cards */
 .card img{
   width:100%;
-  height:250px;       /* fixed height for all images */
-  object-fit:cover;   /* scales/crops image to fit */
+  height:250px;
+  object-fit:cover;
   border-radius:12px;
   margin-bottom:15px;
 }
@@ -91,6 +93,7 @@ button:hover{background:#f4c842;color:#0a2540;}
 .about-text{max-width:640px;color:white;font-size:1.15em;line-height:1.7;text-shadow:1px 1px 4px rgba(0,0,0,.6);}
 
 #contact p,#contact a{color:#f4c842;font-weight:bold;text-shadow:1px 1px 4px rgba(0,0,0,.6);}
+#contact a{color:yellow;}
 footer{text-align:center;color:white;background:rgba(10,37,64,.75);padding:35px;border-radius:16px;margin-bottom:40px;}
 
 /* Modal styles */
@@ -252,20 +255,20 @@ function openSection(id){
 }
 
 function goToPayhip(card,url){
-  card.classList.add('fade'); // smooth fade effect
+  card.classList.add('fade');
   setTimeout(()=>{
     window.open(url,'_blank'); 
     card.classList.remove('fade'); 
   },700);
 }
 
-// Staggered fade-in for all cards on page load
+// Staggered fade-in for all cards on page load with longer delay for visibility
 window.addEventListener('load', () => {
   const cards = document.querySelectorAll('.products .card');
   cards.forEach((card, index) => {
     setTimeout(() => {
       card.classList.add('show');
-    }, index * 150); 
+    }, index * 400);  // increased from 150ms to 400ms
   });
 });
 
